@@ -344,7 +344,7 @@
               "type": "percentiles"
             }
           ],
-          "query": "uuid: $uuid AND job_s $job_sequence  AND server_ip: $server_ip AND data_direction: $data_direction AND log_file: lat AND nodeName: $node_name",
+          "query": "log_name: lat AND job_number: $job_number AND sample: $sample AND data_direction: $data_direction AND host: $host",
           "refId": "A",
           "timeField": "date"
         }
@@ -472,9 +472,9 @@
               "type": "percentiles"
             }
           ],
-          "query": "uuid: $uuid AND job_sequence: $job_sequence  AND server_ip: $server_ip AND data_direction: $data_direction AND nodeName: $node_name",
+          "query": "log_name: clat AND job_number: $job_number AND sample: $sample AND data_direction: $data_direction AND host: $host",
           "refId": "A",
-          "timeField": "time_ms"
+          "timeField": "date"
         }
       ],
       "thresholds": [],
@@ -597,9 +597,9 @@
               "type": "percentiles"
             }
           ],
-          "query": "uuid: $uuid AND job_sequence: $job_sequence AND server_ip: $server_ip AND data_direction: $data_direction AND log_file: iop AND nodeName: $node_name",
+          "query": "log_name: iops AND job_number: $job_number AND sample: $sample AND data_direction: $data_direction AND host: $host",
           "refId": "A",
-          "timeField": "time_ms"
+          "timeField": "date"
         }
       ],
       "thresholds": [],
@@ -707,9 +707,9 @@
               "type": "min"
             }
           ],
-          "query": "uuid: $uuid AND job_sequence: $job_sequence AND samples: $samples",
+          "query": "log_name: clat AND job_number: $job_number AND sample: $sample AND data_direction: $data_direction",
           "refId": "A",
-          "timeField": "time_ms"
+          "timeField": "date"
         }
       ],
       "thresholds": [],
@@ -975,7 +975,7 @@
       "30d"
     ]
   },
-  "timezone": "",
+  "timezone": "browser",
   "title": "FIO - Storage Performance Dashboard",
   "uid": "sdpfsZWZk",
   "version": 27
