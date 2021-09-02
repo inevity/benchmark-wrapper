@@ -155,7 +155,7 @@ class _trigger_fio:
                         with open(log_file_name, "r") as log_file:
                             for log_line in log_file:
                                 log_line_values = str(log_line).split(", ")
-                                if len(log_line_values) == 5:
+                                if len(log_line_values) == 4:
                                     timestamp_ms = int(fio_starttime[host]) + int(log_line_values[0])
                                     newtime = datetime.utcfromtimestamp(timestamp_ms / 1000.0)
                                     log_dict = {
@@ -176,7 +176,8 @@ class _trigger_fio:
                                         # "nodeName": pod_details["hostname"],
                                         "data_direction": _data_direction[int(log_line_values[2])],
                                         "block_size": int(log_line_values[3]),
-                                        "offset": int(log_line_values[4]),
+                                        #"offset": int(log_line_values[4]),
+                                        "offset": 0,
                                     }
                                     if "global" in self.fio_jobs_dict.keys():
                                         log_dict["global_options"] = self.fio_jobs_dict["global"]
