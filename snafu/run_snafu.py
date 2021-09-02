@@ -195,6 +195,7 @@ def process_generator(index_args, parser):
         else:
             for data_object in wrapper_object.run():
                 # drop cache after every sample
+                # for baremetal deploy ,need sample=1 and drop cache by shell 
                 drop_cache()
                 for action, index in data_object.emit_actions():
                     if "get_prometheus_trigger" in index and "prom_es" in os.environ:
