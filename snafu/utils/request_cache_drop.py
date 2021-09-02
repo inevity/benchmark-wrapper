@@ -75,6 +75,50 @@ def drop_cache():
         # give kernel a chance to reload important cache items
         # before hitting it with a workload
         time.sleep(cache_reload_time)
+    # pod drop
+    # vm drop ?
+    # baremetalbe drop
+
+    kernel_cache_drop_hosts_ips_file = os.getenv("hostskdrop")
+    with open(kernel_cache_drop_hosts_ips_file) as f:
+        import paramiko
+        hosts = f.read().splitlines()
+        for host in hosts: 
+           paramiko.util.log_to_file('paramiko.log')
+           s = paramiko.SSHClient()
+           s.load_system_host_keys()
+           s.connect(host, 22, 'root', '123456')
+           # should umount the glusterfs ?
+           # sync need to wait to reach disk ,but now cannot know.
+           #stdin, stdout, stderr = s.exec_command('sync; echo 3 > /proc/sys/vm/drop_caches; sleep 60')
+           stdin, stdout, stderr = s.exec_command('sync; echo 3 > /proc/sys/vm/drop_caches')
+           #stdout.channel.set_combine_stderr(True)
+           #output = stdout.readlines()
+           #s.close()
+           #del ssh, stdin, stdout, stderr
+           #time.sleep(60)
+           result = stdout.read()
+           if not result:
+               result = stderr.read()
+           stdin.close()
+           s.close()
+           print(result.decode())
+      
+
+ #   import paramiko
+ #   hostname = 'localhost'
+ #   port = 22
+ #   username = 'foo'
+ #   password = 'xxxYYYxxx'
+ #   
+ #   if __name__ == "__main__":
+ #       paramiko.util.log_to_file('paramiko.log')
+ #       s = paramiko.SSHClient()
+ #       s.load_system_host_keys()
+ #       s.connect(hostname, port, username, password)
+ #       stdin, stdout, stderr = s.exec_command('ifconfig')
+ #       print stdout.read()
+ #       s.close()
 
     #  drop Ceph OSD cache if requested to
 
