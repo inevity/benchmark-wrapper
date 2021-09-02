@@ -26,6 +26,7 @@ import os
 import sys
 import time
 from copy import deepcopy
+from functools import reduce
 
 unittest2_imported = True
 try:
