@@ -51,6 +51,9 @@ class fio_wrapper:
         if "clustername" in os.environ:
             self.args.cluster_name = os.environ["clustername"]
 
+        if self.args.histogramprocess:
+            self.args.histogramprocess = True
+
         self.uuid = os.getenv("uuid", "")
         self.user = os.getenv("test_user", "")
         self.cache_drop_ip = os.getenv("ceph_cache_drop_pod_ip", "")
@@ -90,6 +93,7 @@ class fio_wrapper:
                 self.uuid,
                 i,
                 fio_analyzer_obj,
+                1,
                 self.args.histogramprocess,
             )
             yield trigger_fio_generator
