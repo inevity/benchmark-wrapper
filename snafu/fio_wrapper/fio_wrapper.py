@@ -72,7 +72,7 @@ class fio_wrapper:
         for i in range(1, self.sample + 1):
             sample_dir = os.path.join(self.working_dir, str(i))
             os.makedirs(sample_dir, exist_ok=True)
-            # todo: drop cache for hostvm deploy 
+            # todo: drop cache for hostvm deploy or predrop before run snafu 
             if self.cache_drop_ip:
                 try:
                     drop = requests.get("http://{}:9432/drop_osd_caches".format(self.cache_drop_ip)).text
