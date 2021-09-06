@@ -213,7 +213,7 @@ class _trigger_fio:
                         "log_name": "clat_hist",
                         "timestamp": timestamp_ms,  # this is in ms
                         "date": newtime.strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
-                        "number_samples_histogram": int(log_line_values[1]),
+                        "number_samples_histogram": str(log_line_values[1]),
                         "min": float(log_line_values[2]),
                         "median": float(log_line_values[3]),
                         "p95": float(log_line_values[4]),
