@@ -14,12 +14,15 @@ ioengine=libaio
 #size=512MiB
 #size=100MiB
 #size=80MiB
-size=4GiB
+
+size=10GiB
 #bs=4KiB
 # ok
 #bs=8k
-bs=512k
+#bs=4k
 #bs=8KiB
+bs=512KiB
+
 iodepth=1
 direct=1
 numjobs=2
@@ -42,7 +45,9 @@ numjobs=2
 
 #   # interval between i/o stat samples in milliseconds
 #log_sample_rate: 300
-log_avg_msec=3000
+#log_avg_msec=3000
+#log_avg_msec=1000
+#log_avg_msec=500
 #log_avg_msec=int
 #              By default, fio will log an entry in the iops, latency, or bw log for every I/O that completes. When writing to the disk log, that can quickly grow to a very large size. Setting this option makes fio average the each log  entry  over  the  specified
 #              period of time, reducing the resolution of the log. See log_max_value as well. Defaults to 0, logging all entries.  Also see LOG FILE FORMATS section.
@@ -51,6 +56,8 @@ log_avg_msec=3000
 
 # enale the histlog output
 log_hist_msec=3000
+#log_hist_msec=1000
+#log_hist_msec=500
 
 # log_hist_msec=int
 #              Same  as  log_avg_msec,  but  logs entries for completion latency histograms. Computing latency percentiles from averages of intervals using log_avg_msec is inaccurate. Setting this option makes fio log histogram entries over the specified period of
@@ -61,14 +68,16 @@ log_hist_msec=3000
 rw=write
 fsync_on_close=1
 create_on_open=1
-runtime=15
+#runtime=15
+runtime=30
 ramp_time=5
 
 [read]
 rw=read
 time_based=1
 #runtime=100
-runtime=15
+#runtime=15
+runtime=30
 #ramp_time=15
 ramp_time=5
 
@@ -76,7 +85,8 @@ ramp_time=5
 rw=readwrite
 rwmixread=50
 time_based=1
-runtime=15
+#runtime=15
+runtime=30
 ramp_time=5
 
 #       - jobname_match: write
