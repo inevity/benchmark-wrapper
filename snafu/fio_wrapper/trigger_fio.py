@@ -17,6 +17,7 @@ _log_files = {
     "clat": {"metric": "latency"},
     "slat": {"metric": "latency"},
 }  # ,'clat_hist_processed'
+#_data_direction = {0: "read", 1: "write", 2: "trim", 3: "sync"}
 _data_direction = {0: "read", 1: "write", 2: "trim"}
 
 
@@ -243,13 +244,22 @@ class _trigger_fio:
     def _process_histogram(
         self, job, working_dir, processed_histogram_prefix, histogram_output_file, numjob=1
     ):
+        # only use the numjob=1, not all histgrph.
         histogram_input_file_list = []
         for host in self.hosts:
             input_file = (
                 working_dir + "/" + processed_histogram_prefix + "." + str(numjob) + ".log." + str(host)
             )
             histogram_input_file_list.append(input_file)
+        
+        logger.info("histgram input file list")
+        logger.info(histogram_input_file_list)
+        logger.info(histogram_output_file)
         logger.debug(histogram_input_file_list)
+    
+
+        #import pdb; pdb.set_trace()
+        #import pdb; pdb.set_trace()
         if "log_hist_msec" not in self.fio_jobs_dict[job].keys():
             if (
                 "global" in self.fio_jobs_dict.keys()
@@ -364,13 +374,20 @@ class _trigger_fio:
                         )
                     except Exception as err:  # noqa
                         logger.error("Error setting processed_histogram_prefix %s" % err)
+
+                # do all numjobs, should list or same as log 
                 histogram_output_file = (
                     job_dir + "/" + processed_histogram_prefix + "_processed." + str(self.numjob)
                 )
+                # only for num_job=1 histgraph ? 
                 self._process_histogram(job, job_dir, processed_histogram_prefix, histogram_output_file)
+
+                logger.info("To get histogram_doc")
                 histogram_documents = self._histogram_payload(histogram_output_file, earliest_starttime, job)
                 # if indexing is turned on yield back normalized data
                 index = "hist-log"
+                logger.info("To indx histogram_doc as hist-log")
+                #error  log print async 
                 for document in histogram_documents:
                     yield document, index
             # trigger collection of prom data
