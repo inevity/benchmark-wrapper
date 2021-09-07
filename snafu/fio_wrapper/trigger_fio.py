@@ -157,6 +157,7 @@ class _trigger_fio:
                             for log_line in log_file:
                                 log_line_values = str(log_line).split(", ")
                                 if len(log_line_values) == 4:
+                                    #import pdb; pdb.set_trace()
                                     timestamp_ms = int(fio_starttime[host]) + int(log_line_values[0])
                                     newtime = datetime.utcfromtimestamp(timestamp_ms / 1000.0)
                                     log_dict = {
