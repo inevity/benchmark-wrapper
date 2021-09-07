@@ -1,4 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
+
+#### #!/bin/bash
 #fio  --output-format=json --output=/tmp/fiod/1/rw/fio-result.json --client=/root/perf/snafu/hosts fiojob1
 #ls -laht
 #vim fiojob1
@@ -35,3 +37,5 @@ hostskdrop=/root/perf/snafu/hosts clustername=ipfs2node uuid=${NEW_UUID}  test_u
 
 # drop cache
 # then again 
+NEW_UUID=$(uuidgen)
+hostskdrop=/root/perf/snafu/hosts clustername=ipfs2node uuid=${NEW_UUID}  test_user=baojg     parallel=false ex_index=fio verify_cert=false es=http://172.18.123.49:9200 run_snafu  -t fio --run-id fio1 -H /root/perf/snafu/hosts -j fiojob1 -s 2 -d /tmp/fiodagine/ --histogramprocess True
