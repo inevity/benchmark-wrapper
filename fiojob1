@@ -15,13 +15,31 @@ ioengine=libaio
 #size=100MiB
 #size=80MiB
 
-size=10GiB
+#size=10GiB
+#bs=128KiB
+# blocksize=0
+
+#size=10G
+#bs=512KiB
+# bs=1 
+
+#bs=128KiB
+# blocksize=1
+
+# why blocksize=0 
+#size=10240m
+#bs=4k
+
+size=10g
+bs=64k
+
 #bs=4KiB
 # ok
 #bs=8k
 #bs=4k
+#bs=8k
+# why fail
 #bs=8KiB
-bs=512KiB
 
 iodepth=1
 direct=1
@@ -44,9 +62,10 @@ numjobs=2
 # #filesize: 2GiB
 
 #   # interval between i/o stat samples in milliseconds
-#log_sample_rate: 300
-#log_avg_msec=3000
+#log_sample_rate: 3000
+log_avg_msec=1000
 #log_avg_msec=1000
+# if small than 1000, we should compensaste it ,so now avoid this .
 #log_avg_msec=500
 #log_avg_msec=int
 #              By default, fio will log an entry in the iops, latency, or bw log for every I/O that completes. When writing to the disk log, that can quickly grow to a very large size. Setting this option makes fio average the each log  entry  over  the  specified
@@ -55,7 +74,7 @@ numjobs=2
 #log_hist_msec=3000
 
 # enale the histlog output
-log_hist_msec=3000
+log_hist_msec=1000
 #log_hist_msec=1000
 #log_hist_msec=500
 
