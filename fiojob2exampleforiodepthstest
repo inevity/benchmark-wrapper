@@ -1,0 +1,198 @@
+[global]
+directory=/tmp/dir
+filename_format=f.\$jobnum.\$filenum
+write_bw_log=fio
+write_iops_log=fio
+write_lat_log=fio
+write_hist_log=fio
+#log_avg_msec=0.5
+#log_hist_msec=100
+clocksource=clock_gettime
+#kb_base=1000
+#unit_base=8
+ioengine=libaio
+#size=512MiB
+#size=100MiB
+#size=80MiB
+
+#size=10GiB
+#bs=128KiB
+# blocksize=0
+
+#size=10G
+#bs=512KiB
+# bs=1 
+
+#bs=128KiB
+# blocksize=1
+
+# why blocksize=0 
+#size=10240m
+#bs=4k
+
+size=10g
+bs=64k
+
+#bs=4KiB
+# ok
+#bs=8k
+#bs=4k
+#bs=8k
+# why fail
+#bs=8KiB
+
+#iodepth=1
+# 1 2 4 8 16 32 64 128 256 512 1024 2048
+direct=1
+numjobs=1
+
+#log_offset=1
+#log_offset=1 lead not wirte write_bw_log
+#log_offset once set will failure.
+
+
+# # how long to run write tests, this is TOO SHORT DURATION
+# #read_runtime: 15
+#   # how long to run read tests, this is TOO SHORT DURATION
+# #write_runtime: 15
+#   # don't start measuring until this many seconds pass, for reads
+# read_ramp_time: 5
+# # don't start measuring until this many seconds pass, for writes
+# write_ramp_time: 5
+# # size of file to access
+# #filesize: 2GiB
+
+#   # interval between i/o stat samples in milliseconds
+#log_sample_rate: 3000
+log_avg_msec=1000
+#log_avg_msec=1000
+# if small than 1000, we should compensaste it ,so now avoid this .
+#log_avg_msec=500
+#log_avg_msec=int
+#              By default, fio will log an entry in the iops, latency, or bw log for every I/O that completes. When writing to the disk log, that can quickly grow to a very large size. Setting this option makes fio average the each log  entry  over  the  specified
+#              period of time, reducing the resolution of the log. See log_max_value as well. Defaults to 0, logging all entries.  Also see LOG FILE FORMATS section.
+
+#log_hist_msec=3000
+
+# enale the histlog output
+log_hist_msec=1000
+#log_hist_msec=1000
+#log_hist_msec=500
+
+# log_hist_msec=int
+#              Same  as  log_avg_msec,  but  logs entries for completion latency histograms. Computing latency percentiles from averages of intervals using log_avg_msec is inaccurate. Setting this option makes fio log histogram entries over the specified period of
+#              time, reducing log sizes for high IOPS devices while retaining percentile accuracy. See log_hist_coarseness and write_hist_log as well.  Defaults to 0, meaning histogram logging is disabled.
+# how test iodepths ,
+# 1. use the jobnamenad put the iodepth in the jobname section
+
+[write1]
+rw=write
+fsync_on_close=1
+create_on_open=1
+#runtime=15
+runtime=30
+ramp_time=5
+iodepth=1
+
+# 1 2 4 8 16 32 64 128 256 512 1024 2048
+[write2]
+rw=write
+fsync_on_close=1
+create_on_open=1
+#runtime=15
+runtime=30
+ramp_time=5
+iodepth=2
+
+[write3]
+rw=write
+fsync_on_close=1
+create_on_open=1
+#runtime=15
+runtime=30
+ramp_time=5
+iodepth=3
+
+[read]
+rw=read
+time_based=1
+#runtime=100
+#runtime=15
+runtime=30
+#ramp_time=15
+ramp_time=5
+
+#[readwrite]
+#rw=readwrite
+#rwmixread=50
+#time_based=1
+##runtime=15
+#runtime=30
+#ramp_time=5
+
+#       - jobname_match: write
+#         params:
+#           - fsync_on_close=1
+#           - create_on_open=1
+#           - runtime={{workload_args.write_runtime }}
+#           - ramp_time={{workload_args.write_ramp_time }}
+#       - jobname_match: read
+#         params:
+#           - time_based=1
+#           - runtime={{workload_args.read_runtime }}
+#           - ramp_time={{workload_args.read_ramp_time }}
+#       - jobname_match: rw
+#         params:
+#           - rwmixread=50
+#           - time_based=1
+#           - runtime={{workload_args.read_runtime }}
+#           - ramp_time={{workload_args.read_ramp_time }}
+#       - jobname_match: readwrite
+#         params:
+#           - rwmixread=50
+#           - time_based=1
+#           - runtime={{workload_args.read_runtime }}
+#           - ramp_time={{workload_args.read_ramp_time }}
+#       - jobname_match: randread
+#         params:
+#           - time_based=1
+#           - runtime={{workload_args.read_runtime }}
+#           - ramp_time={{workload_args.read_ramp_time }}
+#       - jobname_match: randwrite
+#         params:
+#           - time_based=1
+#           - runtime={{workload_args.write_runtime }}
+#           - ramp_time={{workload_args.write_ramp_time }}
+#       - jobname_match: randrw
+#         params:
+#           - time_based=1
+#           - runtime={{workload_args.write_runtime }}
+#           - ramp_time={{workload_args.write_ramp_time }}
+#   #
+#    - jobname_match: rw
+#      params:
+#        - rwmixread=50
+#        - time_based=1
+#        - runtime={{workload_args.read_runtime }}
+#        - ramp_time={{workload_args.read_ramp_time }}
+#    - jobname_match: readwrite
+#      params:
+#        - rwmixread=50
+#        - time_based=1
+#        - runtime={{workload_args.read_runtime }}
+#        - ramp_time={{workload_args.read_ramp_time }}
+#    - jobname_match: randread
+#      params:
+#        - time_based=1
+#        - runtime={{workload_args.read_runtime }}
+#        - ramp_time={{workload_args.read_ramp_time }}
+#    - jobname_match: randwrite
+#      params:
+#        - time_based=1
+#        - runtime={{workload_args.write_runtime }}
+#        - ramp_time={{workload_args.write_ramp_time }}
+#    - jobname_match: randrw
+#      params:
+#        - time_based=1
+#        - runtime={{workload_args.write_runtime }}
+#        - ramp_time={{workload_args.write_ramp_time }}
