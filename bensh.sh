@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+#deploy container
+#docker run -d --restart=always -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -e "http.cors.enabled=true" -e "http.cors.allow-origin=*" -e "http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization" -e "http.cors.allow-credentials=true" docker.elastic.co/elasticsearch/elasticsearch:7.0.1
+#docker run -d --restart=always -p 3000:3000 grafana/grafana:6.3.0
+#docker run -p 1358:1358 -d appbaseio/dejavu
 #### #!/bin/bash
 #fio  --output-format=json --output=/tmp/fiod/1/rw/fio-result.json --client=/root/perf/snafu/hosts fiojob1
 #ls -laht
